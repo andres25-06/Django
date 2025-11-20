@@ -1,136 +1,364 @@
 {% extends "master.html" %}
 
 {% block title %}
-  My Tennis Club - Members
+My Tennis Club - Members
 {% endblock %}
 
 {% block content %}
 
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-/* Burbujas animadas */
-.members-bg::before,
-.members-bg::after {
-    content: '';
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    background: rgba(255,255,255,0.22);
-    border-radius: 50%;
-    animation: float 6s infinite ease-in-out;
-}
+    .members-section {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 25%, #7e8ba3 50%, #b8c5d1 75%, #e8f0f8 100%);
+        background-size: 400% 400%;
+        animation: gradientFlow 20s ease infinite;
+        padding: 40px 20px;
+        position: relative;
+        overflow: hidden;
+    }
 
-.members-bg::after {
-    width: 320px;
-    height: 320px;
-    bottom: -60px;
-    right: -60px;
-    animation-duration: 8s;
-}
+    @keyframes gradientFlow {
+        0% {
+            background-position: 0% 50%;
+        }
 
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-25px); }
-    100% { transform: translateY(0); }
-}
+        50% {
+            background-position: 100% 50%;
+        }
 
-/* Tarjeta */
-.members-card {
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(5px);
-    max-width: 600px;
-    margin: auto;
-    padding: 35px;
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-    animation: fadein 0.8s ease;
-}
+        100% {
+            background-position: 0% 50%;
+        }
+    }
 
-@keyframes fadein {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    /* Efectos de fondo animados */
+    .members-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+        pointer-events: none;
+    }
 
-/* Título */
-.members-title {
-    font-size: 40px;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 25px;
-    color: #333;
-}
+    @keyframes gridMove {
+        0% {
+            transform: translate(0, 0);
+        }
 
-/* Link HOME */
-.members-home {
-    text-decoration: none;
-    text-align: center;
-    font-weight: 600;
-    color: #333;
-    display: inline-block;
-    margin-bottom: 20px;
-    transition: 0.2s;
-}
+        100% {
+            transform: translate(50px, 50px);
+        }
+    }
 
-.members-home:hover {
-    color: #111;
-    transform: scale(1.05);
-}
+    /* Contenedor principal */
+    .members-container {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+    }
 
-/* Lista de miembros */
-.members-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+    /* Botón Home */
+    .home-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
 
-.members-list li {
-    background: #fff;
-    margin-bottom: 12px;
-    padding: 12px 18px;
-    border-radius: 12px;
-    border: 2px solid #eee;
-    transition: 0.25s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
+    .home-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
 
-/* Links de detalle */
-.members-list a {
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 18px;
-    color: #4a39c2;
-    transition: 0.2s;
-}
+    .home-button::before {
+        content: '←';
+        font-size: 20px;
+    }
 
-.members-list li:hover {
-    transform: scale(1.03);
-    border-color: #4a39c2;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-}
+    /* Título */
+    .members-header {
+        text-align: center;
+        margin-bottom: 50px;
+        animation: slideDown 0.8s ease-out;
+    }
 
-.members-list a:hover {
-    color: #3424a8;
-}
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .members-title {
+        font-size: 64px;
+        font-weight: 900;
+        background: linear-gradient(135deg, #fff 0%, #e0e7ff 50%, #fff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+        text-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+        letter-spacing: -2px;
+    }
+
+    .members-subtitle {
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 300;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Grid de miembros */
+    .members-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Tarjeta de miembro */
+    .member-card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 20px;
+        padding: 25px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        animation: cardFadeIn 0.6s ease-out backwards;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .member-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .member-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .member-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .member-card:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .member-card:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    .member-card:nth-child(6) {
+        animation-delay: 0.6s;
+    }
+
+    .member-card:nth-child(n+7) {
+        animation-delay: 0.7s;
+    }
+
+    @keyframes cardFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .member-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    .member-card:hover::before {
+        left: 100%;
+    }
+
+    .member-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Link del miembro */
+    .member-link {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Icono del miembro */
+    .member-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+
+    .member-card:hover .member-icon {
+        transform: rotate(360deg) scale(1.1);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+    }
+
+    /* Nombre del miembro */
+    .member-name {
+        font-size: 20px;
+        font-weight: 700;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        flex: 1;
+    }
+
+    .member-card:hover .member-name {
+        transform: translateX(5px);
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Flecha */
+    .member-arrow {
+        font-size: 20px;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .member-card:hover .member-arrow {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Mensaje si no hay miembros */
+    .empty-message {
+        text-align: center;
+        padding: 60px 20px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 18px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .members-title {
+            font-size: 48px;
+        }
+
+        .members-subtitle {
+            font-size: 18px;
+        }
+
+        .members-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .member-card {
+            padding: 20px;
+        }
+
+        .member-name {
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .members-title {
+            font-size: 36px;
+        }
+
+        .members-section {
+            padding: 20px 15px;
+        }
+    }
 </style>
 
+<div class="members-section">
+    <div class="members-container">
+        <a href="/" class="home-button">HOME</a>
 
-<div class="members-bg">
-    <div class="members-card">
-        
-        <a href="/" class="members-home">⬅ HOME</a>
+        <div class="members-header">
+            <h1 class="members-title">Members</h1>
+            <p class="members-subtitle">Explora nuestra comunidad de miembros</p>
+        </div>
 
-        <h1 class="members-title">Members</h1>
-
-        <ul class="members-list">
+        {% if mymembers %}
+        <ul class="members-grid">
             {% for x in mymembers %}
-                <li>
-                    <a href="details/{{ x.id }}">
+            <li class="member-card">
+                <a href="details/{{ x.id }}" class="member-link">
+                    <div class="member-icon">
+                        {{ x.firstname|first|upper }}
+                    </div>
+                    <span class="member-name">
                         {{ x.firstname }} {{ x.lastname }}
-                    </a>
-                </li>
+                    </span>
+                    <span class="member-arrow">→</span>
+                </a>
+            </li>
             {% endfor %}
         </ul>
-
+        {% else %}
+        <div class="empty-message">
+            No hay miembros registrados aún.
+        </div>
+        {% endif %}
     </div>
 </div>
 
