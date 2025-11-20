@@ -1,383 +1,643 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página sobre Django</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #0C4B33;
-      --secondary-color: #117A50;
-      --accent-color: #FFFFFF;
-      --text-color: #F8F9F9;
-      --shadow-color: rgba(0, 0, 0, 0.3);
-      --hover-shadow: rgba(0, 0, 0, 0.4);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Framework - Framework Web Moderno</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      background-attachment: fixed; /* Para un efecto sutil de parallax */
-      color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 50px 20px;
-      min-height: 100vh;
-      overflow-x: hidden;
-      animation: bodyFadeIn 1.5s ease-in-out;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
 
-    @keyframes bodyFadeIn {
-      0% { opacity: 0; transform: scale(0.98); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
 
-    h1 {
-      font-size: clamp(2.5em, 5vw, 3.5em); /* Responsive font size */
-      font-weight: 700;
-      color: var(--accent-color);
-      text-align: center;
-      margin-bottom: 40px;
-      text-shadow: 0 4px 15px var(--shadow-color);
-      animation: slideDown 1.2s ease-out forwards;
-      letter-spacing: 1px;
-    }
+            50% {
+                background-position: 100% 50%;
+            }
 
-    @keyframes slideDown {
-      0% { transform: translateY(-60px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 60px;
-      animation: buttonsSlideUp 1.5s ease-out 0.5s both;
-    }
+        /* Partículas de fondo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            z-index: 0;
+            pointer-events: none;
+            animation: patternMove 25s ease-in-out infinite;
+        }
 
-    @keyframes buttonsSlideUp {
-      0% { transform: translateY(50px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
+        @keyframes patternMove {
 
-    button {
-      background: linear-gradient(135deg, var(--accent-color) 0%, #f0f0f0 100%);
-      color: var(--primary-color);
-      border: 2px solid transparent;
-      padding: 15px 30px;
-      font-size: 1.1em;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 6px 15px var(--shadow-color);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth easing */
-      transform: translateY(0);
-      position: relative;
-      overflow: hidden;
-    }
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
 
-    button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: left 0.5s;
-    }
+            50% {
+                transform: translate(30px, 30px) scale(1.1);
+                opacity: 0.8;
+            }
+        }
 
-    button:hover::before {
-      left: 100%;
-    }
+        /* Header moderno */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 60px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            animation: slideDown 0.8s ease forwards;
+        }
 
-    button:hover {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      color: var(--accent-color);
-      transform: translateY(-8px) scale(1.08);
-      box-shadow: 0 12px 25px var(--hover-shadow);
-      border-color: var(--accent-color);
-    }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
 
-    button:active {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 8px 15px var(--shadow-color);
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .text-container {
-      background: linear-gradient(135deg, var(--accent-color) 0%, #f9f9f9 100%);
-      color: #222;
-      border-radius: 25px;
-      padding: 50px 60px;
-      width: 90%;
-      max-width: 1000px;
-      text-align: center;
-      box-shadow: 0 10px 30px var(--shadow-color);
-      transition: all 0.6s ease;
-      overflow: hidden;
-      position: relative;
-    }
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
 
-    .text-container::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent 30%, rgba(12, 75, 51, 0.05) 50%, transparent 70%);
-      pointer-events: none;
-      animation: shimmer 3s infinite;
-    }
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff, #f0f0f0, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
 
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
+        header nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
 
-    .text-content {
-      display: none;
-      opacity: 0;
-      transform: translateY(40px) scale(0.95);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+        header nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
 
-    .text-content.active {
-      display: block;
-      animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
+        header nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #ee5a6f);
+            transition: width 0.3s ease;
+        }
 
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(40px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
+        header nav a:hover {
+            color: #fff;
+        }
 
-    .text-content h2 {
-      color: var(--primary-color);
-      font-size: 2.2em;
-      margin-bottom: 25px;
-      font-weight: 700;
-      animation: fadeInText 1s ease 0.2s both;
-      text-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+        header nav a:hover::after {
+            width: 100%;
+        }
 
-    @keyframes fadeInText {
-      0% { opacity: 0; transform: translateX(-30px); }
-      100% { opacity: 1; transform: translateX(0); }
-    }
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            z-index: 1;
+        }
 
-    .text-content p {
-      font-size: 1.2em;
-      line-height: 1.7;
-      margin-bottom: 20px;
-      animation: fadeInText 1s ease 0.4s both;
-    }
+        .hero-content {
+            max-width: 900px;
+            animation: fadeUp 1s ease forwards;
+            opacity: 0;
+        }
 
-    .text-content img {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      margin: 20px 0;
-      animation: fadeInImage 1s ease 0.6s both;
-      transition: transform 0.3s ease;
-    }
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .text-content img:hover {
-      transform: scale(1.05);
-    }
+        .hero h2 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 50%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
 
-    @keyframes fadeInImage {
-      0% { opacity: 0; transform: scale(0.9); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+        .hero p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
 
-    ul {
-      list-style-type: none; /* Cambiado para más estilo */
-      text-align: left;
-      display: inline-block;
-      margin-top: 15px;
-      color: #333;
-      font-size: 1.1em;
-      line-height: 1.8;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInList 0.8s ease 0.6s both;
-    }
+        .hero button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(238, 90, 111, 0.4),
+                0 0 20px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    ul li {
-      position: relative;
-      padding-left: 25px;
-      margin-bottom: 10px;
-    }
+        .hero button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
 
-    ul li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: var(--secondary-color);
-      font-weight: bold;
-      font-size: 1.2em;
-    }
+        .hero button:hover::before {
+            width: 400px;
+            height: 400px;
+        }
 
-    @keyframes fadeInList {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+        .hero button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(238, 90, 111, 0.6),
+                0 0 30px rgba(255, 107, 107, 0.5);
+        }
 
-    a {
-      color: var(--primary-color);
-      font-weight: bold;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      position: relative;
-    }
+        /* Sections */
+        section {
+            padding: 100px 60px;
+            position: relative;
+            z-index: 1;
+        }
 
-    a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -2px;
-      left: 0;
-      background-color: var(--secondary-color);
-      transition: width 0.3s ease;
-    }
+        .section-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
 
-    a:hover::after {
-      width: 100%;
-    }
+        section h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff 0%, #f0f0f0 50%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            letter-spacing: -1px;
+        }
 
-    a:hover {
-      color: var(--secondary-color);
-    }
+        section p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
 
-    footer {
-      margin-top: 60px;
-      font-size: 1em;
-      color: #ddd;
-      text-align: center;
-      animation: footerFadeIn 1s ease 1s both;
-      text-shadow: 0 1px 3px var(--shadow-color);
-    }
+        /* Cards para ventajas/desventajas */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
 
-    @keyframes footerFadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            text-align: left;
+        }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .button-container {
-        gap: 15px;
-      }
-      button {
-        padding: 12px 20px;
-        font-size: 1em;
-      }
-      .text-container {
-        padding: 30px 40px;
-        width: 95%;
-      }
-      h1 {
-        font-size: 2.5em;
-      }
-      .text-content h2 {
-        font-size: 1.8em;
-      }
-      .text-content img {
-        max-width: 100%;
-      }
-    }
-  </style>
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card::before {
+            content: '✓';
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Empresas Section */
+        .empresas {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .company-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transition: transform 0.6s ease;
+        }
+
+        .company-card:hover::before {
+            transform: rotate(180deg);
+        }
+
+        .company-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .company-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .company-card:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .company-card h3 {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Fade in animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            header nav {
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            section {
+                padding: 60px 30px;
+            }
+
+            section h2 {
+                font-size: 2.2rem;
+            }
+
+            .company-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+            }
+
+            .company-card {
+                min-height: 180px;
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 40px 20px;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <h1>Página sobre Django</h1>
+    <header id="header">
+        <h1>Django Framework</h1>
+        <nav>
+            <a href="#que-es">¿Qué es?</a>
+            <a href="#funcion">Función</a>
+            <a href="#estructura">Estructura</a>
+            <a href="#ventajas">Ventajas</a>
+            <a href="#desventajas">Desventajas</a>
+            <a href="#empresas">Empresas</a>
+        </nav>
+    </header>
 
-  <div class="button-container">
-    <button onclick="showText('texto1')">¿Qué es Django?</button>
-    <button onclick="showText('texto2')">Función de Django</button>
-    <button onclick="showText('texto3')">Estructura</button>
-    <button onclick="showText('texto4')">Ventajas</button>
-    <button onclick="showText('texto5')">Desventajas</button>
-    <button onclick="showText('texto6')">Empresas</button>
-  </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Django Framework</h2>
+            <p>Django es un framework web de código abierto escrito en Python que simplifica la creación rápida de
+                sitios
+                web complejos al proporcionar componentes reutilizables para tareas comunes como la autenticación, bases
+                de
+                datos y administración.</p>
+            <button onclick="window.location.href='#que-es'">Comenzar</button>
+        </div>
+    </section>
 
-  <div class="text-container" id="text-display">
+    <section id="que-es" class="fade-in">
+        <div class="section-content">
+            <h2>¿Qué es Django?</h2>
+            <p>Django es un framework web de código abierto para Python que permite desarrollar aplicaciones web de
+                forma
+                rápida y eficiente. Simplifica tareas como la autenticación de usuarios, la gestión de bases de datos y
+                la
+                creación de formularios.</p>
+        </div>
+    </section>
 
-    <div id="texto1" class="text-content active">
-      <h2>¿Qué es Django?</h2>
-      <img src="data:image/png;base64,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" alt="Logo">
-      <p>Django es un framework web de código abierto, gratuito y escrito en Python, que permite desarrollar aplicaciones web de forma rápida, eficiente y segura.</p>
-    </div>
+    <section id="funcion" class="fade-in">
+        <div class="section-content">
+            <h2>Función de Django</h2>
+            <p>La función de Django es facilitar la creación de aplicaciones web rápidas y seguras, ofreciendo
+                herramientas
+                reutilizables y protecciones integradas contra vulnerabilidades comunes, permitiendo a los
+                desarrolladores
+                centrarse en la lógica de su aplicación.</p>
+        </div>
+    </section>
 
-    <div id="texto2" class="text-content">
-      <h2>Funcionalidad de Django</h2>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT51sLs7yMgbWnPWAGw9PywJPrP_exuOA8YdQ&s" alt="Ilustración de la arquitectura MVT de Django">
-      <p>Django es un framework de alto nivel basado en Python que facilita el desarrollo rápido de sitios web seguros y mantenibles. Incluye arquitectura MVT, ORM, panel de administración, manejo de formularios, seguridad integrada y escalabilidad para proyectos grandes.</p>
-    </div>
+    <section id="estructura" class="fade-in">
+        <div class="section-content">
+            <h2>Estructura Django</h2>
+            <p>La estructura de Django sigue el patrón Modelo-Vista-Plantilla (MVT). Cada aplicación tiene sus modelos
+                (datos), vistas (lógica) y plantillas (interfaz de usuario), lo que facilita la organización del
+                proyecto.
+            </p>
+        </div>
+    </section>
 
-    <div id="texto3" class="text-content">
-      <h2>Estructura de un Proyecto Django</h2>
-      <img src="https://substackcdn.com/image/fetch/$s_!PJrI!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F798cbd8d-ebdf-4bec-900c-df97022d8845_1600x863.png" alt="Diagrama de estructura de proyecto Django">
-      <p>Un proyecto Django se compone de “proyectos” y “aplicaciones”. El proyecto contiene la configuración global, mientras que las aplicaciones son módulos independientes con sus propios modelos, vistas, rutas y plantillas, lo que fomenta la reutilización y organización del código.</p>
-    </div>
+    <section id="ventajas" class="fade-in">
+        <div class="section-content">
+            <h2>Ventajas</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Desarrollo rápido</h3>
+                    <p>Permite crear aplicaciones web complejas en menos tiempo.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Seguridad sólida</h3>
+                    <p>Protecciones integradas contra vulnerabilidades comunes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Funcionalidades integradas</h3>
+                    <p>Admin panel, autenticación y ORM incluidos.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Código reutilizable</h3>
+                    <p>Componentes modulares y reutilizables.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Amplia comunidad</h3>
+                    <p>Documentación extensa y comunidad activa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div id="texto4" class="text-content">
-      <h2>Ventajas de Usar Django</h2>
-      <img src="https://i0.wp.com/unaaldia.hispasec.com/wp-content/uploads/2022/07/django-sqli.png?fit=1920%2C1080&ssl=1" alt="Ilustración de ventajas de Django con íconos lindos">
-      <ul>
-        <li>Desarrollo rápido y eficiente.</li>
-        <li>Alta seguridad integrada.</li>
-        <li>Escalable para grandes proyectos.</li>
-        <li>Gran comunidad y soporte activo.</li>
-        <li>Incluye muchas herramientas listas para usar.</li>
-      </ul>
-    </div>
+    <section id="desventajas" class="fade-in">
+        <div class="section-content">
+            <h2>Desventajas</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Puede ser excesivo</h3>
+                    <p>Para proyectos pequeños puede resultar demasiado complejo.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Curva de aprendizaje</h3>
+                    <p>Requiere tiempo para dominar todos sus conceptos.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Estructura monolítica</h3>
+                    <p>Menos flexible que frameworks más ligeros.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div id="texto5" class="text-content">
-      <h2>Desventajas de usar Django</h2>
-      <img src="https://img.freepik.com/vector-premium/icono-marca-cruz-roja-simbolo-eleccion-negativa-boton-aplicacion-signo_744955-339.jpg?semt=ais_hybrid&w=740&q=80" width="50%" alt="Ilustración de desventajas de Django de manera adorable">
-      <ul>
-        <li>Curva de aprendizaje moderada para principiantes.</li>
-        <li>Puede ser demasiado grande para proyectos pequeños.</li>
-        <li>Menos flexible por su estructura predefinida.</li>
-        <li>No es ideal para aplicaciones muy ligeras o microservicios.</li>
-        <li>Algunas configuraciones requieren experiencia técnica.</li>
-      </ul>
-    </div>
+    <section id="empresas" class="empresas fade-in">
+        <div class="section-content">
+            <h2>Empresas que usan Django</h2>
+            <div class="company-grid">
+                <div class="company-card fade-in">
+                    <img src="https://1000marcas.net/wp-content/uploads/2019/11/Instagram-Logo.png" alt="Instagram">
+                    <h3>Instagram</h3>
+                </div>
+                <div class="company-card fade-in">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Spotify_App_Logo.svg" alt="Spotify">
+                    <h3>Spotify</h3>
+                </div>
+                <div class="company-card fade-in">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png" alt="Pinterest">
+                    <h3>Pinterest</h3>
+                </div>
+                <div class="company-card fade-in">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/nasa.svg" alt="NASA">
+                    <h3>NASA</h3>
+                </div>
+                <div class="company-card fade-in">
+                    <img src="https://1000marcas.net/wp-content/uploads/2020/03/logo-National-Geographic-640x360.png"
+                        alt="National Geographic">
+                    <h3>National Geographic</h3>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div id="texto6" class="text-content">
-      <h2>Empresas que Usan Django</h2>
-      <img src="https://static.tildacdn.net/tild6135-3935-4039-b838-373465656665/TXfbXzo.png" alt="Logos de empresas que usan Django de forma melosa">
-      <p>Empresas como <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>, 
-      <a href="https://www.spotify.com" target="_blank" rel="noopener noreferrer">Spotify</a>, 
-      <a href="https://www.mozilla.org" target="_blank" rel="noopener noreferrer">Mozilla</a>, 
-      The Washington Post, Pinterest y Coursera usan Django por su robustez y escalabilidad.</p>
-    </div>
+    <footer>
+        <p>© 2025 Proyecto Django - Yeimy Tatiana Bayona Pérez.</p>
+    </footer>
 
-  </div>
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-
-
-  <script>
-    function showText(textId) {
-      document.querySelectorAll('.text-content').forEach(e => e.classList.remove('active'));
-      document.getElementById(textId).classList.add('active');
-    }
-  </script>
+        // Fade in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
 
 </body>
+
 </html>

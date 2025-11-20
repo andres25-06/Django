@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.template import loader
+from django.http import HttpResponse  # pyright: ignore[reportMissingImports]
+from django.template import loader  # pyright: ignore[reportMissingImports]
 from .models import Member
 
 def members(request):
